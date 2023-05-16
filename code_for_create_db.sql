@@ -57,7 +57,7 @@ create table temperatura(
 	id_sensor_temperatura integer not null,
 	id_ambiente integer not null,
 	valor float,
-	primary key (id_tempe	ratura),
+	primary key (id_temperatura),
 	foreign key (id_ambiente) references ambiente(id_ambiente),
 	foreign key (id_sensor_temperatura) references sensor_temperatura(id_sensor_temperatura)
 );
