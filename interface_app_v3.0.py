@@ -34,7 +34,6 @@ var_janela_registra_balanca = None
 var_janela_registra_ave = None
 var_janela_registra_tipo_alimento = None
 var_janela_registra_alimento = None
-var_janela_teste = None
 var_janela_zero_ambientes = None
 
 # Retorna um lista com todos os IDs dos ambientes registrados
