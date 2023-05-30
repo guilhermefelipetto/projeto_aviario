@@ -65,7 +65,8 @@ def activate_sensors():
             for id_sensor_temperatura in range(len(retorna_lista_id_sensor_temperatura())):
                 cur.execute("insert into temperatura (id_ambiente, id_sensor_temperatura, valor) "
                             "values (%s, %s, %s)",
-                            (retorna_lista_id_ambiente()[id_ambiente], id_sensor_temperatura + 1, round(random.uniform(10, 31), 1)
+                            (retorna_lista_id_ambiente()[id_ambiente], id_sensor_temperatura + 1,
+                             round(random.uniform(10, 31), 1)
                              ))
                 conn.commit()
                 print("dado de TEMPERATURA inserido no banco com sucesso!")
@@ -75,7 +76,8 @@ def activate_sensors():
             for id_sensor_umidade in range(len(retorna_lista_id_sensor_umidade())):
                 cur.execute("insert into umidade (id_ambiente, id_sensor_umidade, valor) "
                             "values (%s, %s, %s)",
-                            (retorna_lista_id_ambiente()[id_ambiente], id_sensor_umidade + 1, round(random.uniform(10, 16), 1)
+                            (retorna_lista_id_ambiente()[id_ambiente], id_sensor_umidade + 1,
+                             round(random.uniform(10, 16), 1)
                              ))
                 conn.commit()
                 print("dado de UMIDADE inserido no banco com sucesso!")
@@ -85,7 +87,8 @@ def activate_sensors():
             for id_balanca in range(len(retorna_lista_id_balanca())):
                 cur.execute("insert into peso (id_ambiente, id_balanca, valor) "
                             "values (%s, %s, %s)",
-                            (retorna_lista_id_ambiente()[id_ambiente], id_balanca + 1, round(random.uniform(2, 6), 1)
+                            (retorna_lista_id_ambiente()[id_ambiente], id_balanca + 1,
+                             round(random.uniform(2, 6), 1)
                              ))
                 conn.commit()
                 print("dado de PESO inserido no banco com sucesso!")
