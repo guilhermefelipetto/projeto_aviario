@@ -1,4 +1,3 @@
-import random
 import sys
 
 import psycopg2
@@ -167,7 +166,6 @@ def registra_alimento(id_ambiente, id_tipo_alimento):
     conn.commit()
 
 
-@pyqtSlot()
 def registra_temperatura(id_ambiente, id_sensor_temperatura, valor):
     """
     Registra novo valor de temperatura no db
@@ -181,7 +179,6 @@ def registra_temperatura(id_ambiente, id_sensor_temperatura, valor):
     conn.commit()
 
 
-@pyqtSlot()
 def registra_umidade(id_ambiente, id_sensor_temperatura, valor):
     """
     Registra novo valor de umidade no db
@@ -195,7 +192,6 @@ def registra_umidade(id_ambiente, id_sensor_temperatura, valor):
     conn.commit()
 
 
-@pyqtSlot()
 def registra_peso(id_ambiente, id_balanca, valor):
     """
     Registra novo valor de peso no db
@@ -207,12 +203,6 @@ def registra_peso(id_ambiente, id_balanca, valor):
     cur.execute(f'insert into peso (id_balanca, id_ambiente, valor)'
                 f'values ({id_balanca}, {id_ambiente}, {valor})')
     conn.commit()
-
-
-# Em construcao
-def ativa_sensores():
-    while True:
-        return 0
 
 
 # Janela principal
