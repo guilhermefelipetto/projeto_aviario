@@ -1,3 +1,7 @@
+"""
+Simula a ativação dos sensores gravando dados pseudo-randomicos no banco de dados.
+"""
+
 import random
 from time import sleep
 
