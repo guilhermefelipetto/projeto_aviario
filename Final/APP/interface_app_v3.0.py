@@ -38,25 +38,17 @@ var_janela_zero_ambientes = None
 
 # Retorna um lista com todos os IDs dos ambientes registrados
 cur.execute("select * from ambiente")
-lista_id_ambiente = []
-for linha in cur:
-    str_id_nome = f'\n\tAmbiente: {linha[1]} -> ID {linha[0]}'
-    lista_id_ambiente.append(str_id_nome)
+lista_id_ambiente = [f'\n\tAmbiente: {linha[1]} -> ID {linha[0]}' for linha in cur]
 str_lista_id_ambiente = ''.join(lista_id_ambiente)
 
 # Retorna uma lista com todos os IDs dos tipos de alimentos registrados
 cur.execute("select * from tipo_alimento")
-lista_id_tipo_alimento = []
-for linha in cur:
-    str_id_nome = f'\n\tTipo de alimento: {linha[1]} -> ID {linha[0]}'
-    lista_id_tipo_alimento.append(str_id_nome)
+lista_id_tipo_alimento = [f'\n\tTipo de alimento: {linha[1]} -> ID {linha[0]}' for linha in cur]
 str_lista_id_tipo_alimento = ''.join(lista_id_tipo_alimento)
 
 # Verifica se ha algum ambiente registrado
 cur.execute("select id_ambiente from ambiente")
-lista_verificadora_id_ambiente = []
-for linha in cur:
-    lista_verificadora_id_ambiente.append(linha)
+lista_verificadora_id_ambiente = [linha for linha in cur]
 
 if len(lista_verificadora_id_ambiente) <= 0:
     verifica_ambiente_registrado = False
@@ -65,9 +57,7 @@ elif len(lista_verificadora_id_ambiente) >= 1:
 
 # Verifica se ha algum tipo de alimento registrado
 cur.execute("select id_tipo_alimento from tipo_alimento")
-lista_verificadora_id_tipo_alimento = []
-for linha in cur:
-    lista_verificadora_id_tipo_alimento.append(linha)
+lista_verificadora_id_tipo_alimento = [linha for linha in cur]
 
 if len(lista_verificadora_id_tipo_alimento) <= 0:
     verifica_tipo_alimento_registrado = False
@@ -517,7 +507,7 @@ def janela_registra_tipo_alimento():
         var_janela_registra_tipo_alimento.show()
 
 
-def janela_registra_alimento():  # id_ambiente, id_tipo_alimento
+def janela_registra_alimento():
     global var_janela_registra_alimento
 
     if verifica_ambiente_registrado is False or verifica_tipo_alimento_registrado is False:
@@ -533,7 +523,7 @@ def janela_registra_alimento():  # id_ambiente, id_tipo_alimento
         # Registra o ambiente no banco
         button = QPushButton("Registrar novo alimento", var_janela_registra_alimento)
         button.clicked.connect(lambda: registra_alimento(int(id_ambiente_input.text()),
-                                                              int(id_tipo_alimento_input.text())))
+                                                         int(id_tipo_alimento_input.text())))
         button.move(20, 100)
         button.setFixedSize(200, 30)
 
