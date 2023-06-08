@@ -30,6 +30,7 @@ cur = conn.cursor()
 var_janela_registra_ambiente = None
 var_janela_registra_sensor_temperatura = None
 var_janela_registra_sensor_umidade = None
+var_janela_registra_sensor_luminosidade = None
 var_janela_registra_balanca = None
 var_janela_registra_ave = None
 var_janela_registra_tipo_alimento = None
@@ -104,6 +105,19 @@ def registra_sensor_umidade(id_ambiente, nome):
 
 
 @pyqtSlot()
+def registra_sensor_luminosidade(id_ambiente, nome):
+    """
+    Registra novo sensor de luminosidade no db
+    :param id_ambiente:
+    :param nome:
+    :return:
+    """
+    cur.execute(f"insert into sensor_luminosidade (id_ambiente, nome)"
+                f"values ({id_ambiente}, '{nome}')")
+    conn.commit()
+
+
+@pyqtSlot()
 def registra_balanca(id_ambiente, nome):
     """
     Registra nova balanca no db
@@ -163,8 +177,21 @@ def registra_temperatura(id_ambiente, id_sensor_temperatura, valor):
     :param valor:
     :return:
     """
-    cur.execute(f'insert into temperatura (id_sensor_temperatura, id_ambiente, valor)'
-                f'values ({id_sensor_temperatura}, {id_ambiente}, {valor})')
+    cur.execute("insert into temperatura (id_sensor_temperatura, id_ambiente, valor)"
+                f"values ({id_sensor_temperatura}, {id_ambiente}, {valor})")
+    conn.commit()
+
+
+def registra_luminosidade(id_ambiente, id_sensor_luminosidade, valor):
+    """
+    Registtra novo valor de luminosidade no db
+    :param id_ambiente:
+    :param id_sensor_luminosidade:
+    :param valor:
+    :return:
+    """
+    cur.execute("insert into luminosidade (id_sensor_luminosidade, id_ambiente, valor)"
+                f"values ({id_sensor_luminosidade}, {id_ambiente}, {valor})")
     conn.commit()
 
 
@@ -225,28 +252,34 @@ def cria_janela():
     button_sensor_umidade.move(20, 140)
     button_sensor_umidade.setFixedSize(300, 30)
 
+    # Registrta sensor luminosidade
+    button_sensor_luminosidade = QPushButton("Registrar novo sensor de luminosidade", main_window)
+    button_sensor_luminosidade.clicked.connect(janela_registra_sensor_luminosidade)
+    button_sensor_luminosidade.move(20, 180)
+    button_sensor_luminosidade.setFixedSize(300, 30)
+
     # Registra balanca
     button_balanca = QPushButton("Registrar nova balanca", main_window)
     button_balanca.clicked.connect(janela_registra_balanca)
-    button_balanca.move(20, 180)
+    button_balanca.move(20, 220)
     button_balanca.setFixedSize(300, 30)
 
     # Registra ave
     button_ave = QPushButton("Registrar nova ave", main_window)
     button_ave.clicked.connect(janela_registra_ave)
-    button_ave.move(20, 220)
+    button_ave.move(20, 260)
     button_ave.setFixedSize(300, 30)
 
     # Registra tipo alimento
     button_tipo_alimento = QPushButton("Registrar novo tipo de alimento", main_window)
     button_tipo_alimento.clicked.connect(janela_registra_tipo_alimento)
-    button_tipo_alimento.move(20, 260)
+    button_tipo_alimento.move(20, 300)
     button_tipo_alimento.setFixedSize(300, 30)
 
     # Registra alimento
     button_alimento = QPushButton("Registrar novo alimento", main_window)
     button_alimento.clicked.connect(janela_registra_alimento)
-    button_alimento.move(20, 300)
+    button_alimento.move(20, 340)
     button_alimento.setFixedSize(300, 30)
 
     # Define o tamanho da janela
@@ -377,6 +410,54 @@ def janela_registra_sensor_umidade():
         label.setFixedSize(400, 300)
 
         var_janela_registra_sensor_umidade.show()
+
+
+def janela_registra_sensor_luminosidade():
+    global var_janela_registra_sensor_luminosidade
+
+    # Verifica se ha pelo menos 1 ambiente registrado
+    if verifica_ambiente_registrado is False:
+        var_janela_registra_sensor_luminosidade = True
+        if var_janela_registra_sensor_luminosidade is True:
+            janela_zero_ambientes()
+
+    if var_janela_registra_sensor_luminosidade is None:
+        var_janela_registra_sensor_luminosidade = QMainWindow()
+        var_janela_registra_sensor_luminosidade.setWindowTitle("Registrar sensor de luminosidade")
+        var_janela_registra_sensor_luminosidade.setGeometry(200, 200, 700, 500)
+
+        # Registra sensor de luminosidade
+        button = QPushButton("Registrar novo sensor de luminosidade", var_janela_registra_sensor_luminosidade)
+        button.clicked.connect(lambda: registra_sensor_luminosidade(int(id_ambiente_input.text()),
+                                                                    nome_sensor_luminosidade_input.text()))
+        button.move(20, 100)
+        button.setFixedSize(300, 30)
+
+        # Recebe o nome do sensor de luminosidade
+        nome_sensor_luminosidade_label = QLabel("Nome do sensor de luminosidade:",
+                                                var_janela_registra_sensor_luminosidade)
+        nome_sensor_luminosidade_label.move(20, 20)
+        nome_sensor_luminosidade_label.setFixedSize(250, 30)
+
+        nome_sensor_luminosidade_input = QLineEdit(var_janela_registra_sensor_luminosidade)
+        nome_sensor_luminosidade_input.move(220, 20)
+        nome_sensor_luminosidade_input.setFixedSize(170, 30)
+
+        # Recebe o id do ambiente
+        id_ambiente_label = QLabel("Digite o ID de um ambiente cadastrado:", var_janela_registra_sensor_luminosidade)
+        id_ambiente_label.move(20, 60)
+        id_ambiente_label.setFixedSize(250, 30)
+
+        id_ambiente_input = QLineEdit(var_janela_registra_sensor_luminosidade)
+        id_ambiente_input.move(250, 60)
+        id_ambiente_input.setFixedSize(140, 30)
+
+        # Mostra todos os id_ambiente registrados
+        label = QLabel(f"IDs registrados: {str_lista_id_ambiente}", var_janela_registra_sensor_luminosidade)
+        label.move(20, 130)
+        label.setFixedSize(400, 300)
+
+        var_janela_registra_sensor_luminosidade.show()
 
 
 def janela_registra_balanca():
