@@ -1,3 +1,4 @@
+
 create table ambiente(
 	id_ambiente SERIAL not null,
 	nome varchar(100),
@@ -17,6 +18,14 @@ create table sensor_umidade(
 	id_ambiente integer not null,
 	nome varchar(100),
 	primary key (id_sensor_umidade),
+	foreign key (id_ambiente) references ambiente(id_ambiente)
+);
+
+create table sensor_luminosidade(
+	id_sensor_luminosidade SERIAL not null,
+	id_ambiente integer not null,
+	nome varchar(100),
+	primary key (id_sensor_luminosidade),
 	foreign key (id_ambiente) references ambiente(id_ambiente)
 );
 
@@ -60,6 +69,17 @@ create table temperatura(
 	primary key (id_temperatura),
 	foreign key (id_ambiente) references ambiente(id_ambiente),
 	foreign key (id_sensor_temperatura) references sensor_temperatura(id_sensor_temperatura)
+);
+
+create table luminosidade(
+	id_luminosidade SERIAL not null,
+	data_hora TIMESTAMP DEFAULT NOW(),
+	id_sensor_luminosidade integer not null,
+	id_ambiente integer not null,
+	valor float,
+	primary key (id_luminosidade),
+	foreign key (id_ambiente) references ambiente(id_ambiente),
+	foreign key (id_sensor_luminosidade) references sensor_luminosidade(id_sensor_luminosidade)
 );
 
 create table umidade(
