@@ -1,4 +1,3 @@
-
 create table ambiente(
 	id_ambiente SERIAL not null,
 	nome varchar(100),
