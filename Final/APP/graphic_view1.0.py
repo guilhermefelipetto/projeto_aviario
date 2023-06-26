@@ -1,7 +1,6 @@
 import sys
 
 import psycopg2
-import numpy as np
 import matplotlib.pyplot as plt
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QLineEdit, \
