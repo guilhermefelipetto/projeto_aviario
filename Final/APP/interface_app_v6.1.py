@@ -3,8 +3,7 @@ import sys
 import psycopg2
 
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QLabel, QListWidget, QListWidgetItem,\
-    QVBoxLayout, QHBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QLabel, QListWidget, QListWidgetItem
 
 # todo - linguagem QML -> PyQt5
 
@@ -714,4 +713,6 @@ if cur or conn is None:
 
             var_janela_zero_ambientes.show()
 
-    cria_janela()
+
+    if __name__ == "__main__":
+        cria_janela()
