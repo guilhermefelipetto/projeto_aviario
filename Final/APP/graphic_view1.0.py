@@ -36,7 +36,7 @@ except psycopg2.OperationalError as err:
     conn = None
     print(f'Verifique a conexao com o banco!\nerr: {str(err)}')
 
-if cur is None or conn is None:
+if cur is not None and conn is not None:
     # Variaveis globais
     var_win_grafico_temperatura = None
     var_win_grafico_umidade = None
